@@ -1,13 +1,390 @@
-index.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uganda Tourism</title>
+    <meta name="theme-color" content="#183c32">
+    <meta name="description" content="Discover Uganda's national parks, compare indicative trip prices, and start planning a personal safari with a local guide.">
+    <title>Wild Uganda — Find your kind of wild</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: light;
+            --forest: #183c32;
+            --forest-deep: #102a24;
+            --leaf: #57774e;
+            --lime: #d6e87a;
+            --cream: #f7f6f0;
+            --paper: #fffefa;
+            --ink: #1d2923;
+            --muted: #6a756d;
+            --line: #e7e8df;
+            --serif: "Playfair Display", Georgia, serif;
+            --sans: "DM Sans", Arial, sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+        body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+        a { color: inherit; text-decoration: none; }
+        button, input, select { font: inherit; }
+        button, a { -webkit-tap-highlight-color: transparent; }
+        img { display: block; max-width: 100%; }
+        .shell { width: min(1160px, calc(100% - 64px)); margin-inline: auto; }
+
+        .announcement { background: var(--forest-deep); color: #edf2db; font-size: 13px; letter-spacing: .035em; text-align: center; padding: 10px 20px; }
+        .announcement strong { color: var(--lime); font-weight: 700; }
+        .header { position: sticky; z-index: 20; top: 0; background: rgba(255, 254, 250, .96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(231, 232, 223, .85); }
+        .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+        .brand { display: inline-flex; gap: 10px; align-items: center; font-weight: 700; font-size: 17px; letter-spacing: -.035em; white-space: nowrap; }
+        .brand-mark { width: 35px; height: 35px; display: grid; place-items: center; border-radius: 50%; color: var(--lime); background: var(--forest); }
+        .brand-mark svg { width: 19px; height: 19px; }
+        .brand-name span { color: var(--leaf); font-weight: 500; }
+        .nav-links { display: flex; align-items: center; gap: 33px; color: #46534b; font-size: 14px; font-weight: 600; }
+        .nav-links a:not(.nav-cta):hover { color: var(--leaf); }
+        .nav-cta, .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 0; border-radius: 4px; background: var(--forest); color: white; font-weight: 600; transition: background .2s, transform .2s; }
+        .nav-cta { min-height: 42px; padding: 0 18px; font-size: 13px; }
+        .nav-cta:hover, .button:hover { background: #285447; transform: translateY(-1px); }
+        .menu-toggle { display: none; align-items: center; justify-content: center; width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 4px; background: transparent; color: var(--forest); cursor: pointer; }
+
+        .hero { position: relative; min-height: 630px; display: flex; align-items: center; overflow: hidden; color: white; background: #233d31; }
+        .hero::before { position: absolute; inset: 0; content: ""; background: linear-gradient(90deg, rgba(13, 30, 25, .79) 0%, rgba(15, 32, 27, .61) 43%, rgba(15, 32, 27, .1) 100%), linear-gradient(0deg, rgba(12, 24, 21, .24), transparent 38%), url("photos/uganda-savannah.jpg") center 48%/cover; }
+        .hero-content { position: relative; z-index: 1; width: min(1160px, calc(100% - 64px)); margin-inline: auto; padding: 82px 0 112px; }
+        .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 21px; color: var(--lime); font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+        .eyebrow::before { width: 24px; height: 1px; content: ""; background: currentColor; }
+        h1, h2, h3, p { margin-top: 0; }
+        h1 { max-width: 680px; margin-bottom: 20px; font-family: var(--serif); font-size: clamp(52px, 7vw, 88px); font-weight: 500; letter-spacing: -.055em; line-height: 1.03; }
+        h1 em { color: var(--lime); font-weight: 500; }
+        .hero-copy { max-width: 475px; margin-bottom: 31px; color: rgba(255,255,255,.94); font-size: 17px; line-height: 1.8; }
+        .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 23px; }
+        .button { min-height: 51px; padding: 0 22px; font-size: 14px; cursor: pointer; }
+        .button-light { background: var(--lime); color: var(--forest-deep); }
+        .button-light:hover { background: #e1ef9c; }
+        .text-link { display: inline-flex; align-items: center; gap: 8px; color: white; font-size: 14px; font-weight: 700; }
+        .text-link span, .button svg, .nav-cta svg { transition: transform .2s; }
+        .text-link:hover span, .button:hover svg { transform: translateX(3px); }
+        .hero-note { position: absolute; right: max(32px, calc((100% - 1160px) / 2)); bottom: 31px; color: rgba(255,255,255,.9); font-size: 11px; font-weight: 600; letter-spacing: .045em; }
+
+        .intro-strip { position: relative; z-index: 2; background: var(--cream); }
+        .intro-inner { min-height: 98px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+        .intro-label { max-width: 185px; color: var(--forest); font-family: var(--serif); font-size: 17px; line-height: 1.35; }
+        .intro-item { display: flex; align-items: center; gap: 12px; color: #46534b; font-size: 13px; font-weight: 600; line-height: 1.5; }
+        .intro-icon { flex: 0 0 36px; width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid #dfe3d2; border-radius: 50%; color: var(--leaf); }
+        .intro-icon svg { width: 16px; height: 16px; }
+
+        .section { padding: 100px 0; }
+        .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 35px; margin-bottom: 39px; }
+        .section-heading .eyebrow { color: var(--leaf); margin-bottom: 13px; }
+        h2 { margin-bottom: 0; color: var(--forest); font-family: var(--serif); font-size: clamp(36px, 4.3vw, 53px); font-weight: 500; letter-spacing: -.045em; line-height: 1.12; }
+        .section-lead { max-width: 365px; margin: 0 0 4px; color: #536057; font-size: 15px; line-height: 1.75; }
+        .park-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .park-card { min-width: 0; overflow: hidden; border: 1px solid var(--line); background: white; transition: box-shadow .22s, transform .22s; }
+        .park-card:hover { box-shadow: 0 16px 38px rgba(27, 55, 42, .1); transform: translateY(-4px); }
+        .park-image { position: relative; height: 220px; overflow: hidden; background: #dce1d0; }
+        .park-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+        .park-card:hover .park-image img { transform: scale(1.04); }
+        .park-tag { position: absolute; top: 15px; left: 15px; padding: 7px 10px; background: rgba(255,254,250,.96); color: var(--forest); font-size: 11px; font-weight: 700; letter-spacing: .045em; text-transform: uppercase; }
+        .park-body { padding: 21px 20px 19px; }
+        .park-title-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 9px; }
+        h3 { margin-bottom: 0; color: var(--forest); font-family: var(--serif); font-size: 22px; font-weight: 600; letter-spacing: -.025em; }
+        .park-location { color: #59665d; font-size: 12px; font-weight: 600; text-align: right; }
+        .park-description { min-height: 52px; margin-bottom: 19px; color: #536057; font-size: 14px; font-weight: 500; line-height: 1.7; }
+        .park-footer { display: flex; align-items: end; justify-content: space-between; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; }
+        .price-label { display: block; margin-bottom: 4px; color: #59665d; font-size: 12px; font-weight: 600; }
+        .price { color: var(--forest); font-size: 20px; font-weight: 700; letter-spacing: -.04em; }
+        .price small { color: #536057; font-size: 12px; font-weight: 600; letter-spacing: 0; }
+        .park-link { display: inline-flex; align-items: center; gap: 5px; color: #385e3b; font-size: 12px; font-weight: 700; }
+        .price-disclaimer { margin: 21px 0 0; color: #535f56; font-size: 13px; line-height: 1.75; }
+        .price-disclaimer strong { color: var(--forest); font-weight: 700; }
+
+        .experience { overflow: hidden; background: var(--cream); }
+        .experience-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 82px; }
+        .experience-image { position: relative; min-height: 477px; }
+        .experience-image img { width: 100%; height: 477px; object-fit: cover; }
+        .image-caption { position: absolute; right: -20px; bottom: 25px; max-width: 210px; padding: 16px 19px; background: var(--lime); color: var(--forest); font-family: var(--serif); font-size: 17px; line-height: 1.35; }
+        .experience-copy .eyebrow { color: var(--leaf); }
+        .experience-copy h2 { max-width: 450px; margin-bottom: 20px; }
+        .experience-copy > p { max-width: 460px; margin-bottom: 26px; color: #536057; font-size: 15px; line-height: 1.8; }
+        .benefits { display: grid; gap: 15px; margin: 0 0 29px; padding: 0; list-style: none; }
+        .benefits li { display: flex; align-items: start; gap: 11px; color: #34443a; font-size: 14px; font-weight: 500; line-height: 1.6; }
+        .check { flex: 0 0 19px; width: 19px; height: 19px; display: grid; place-items: center; border-radius: 50%; background: #e5ebd6; color: var(--leaf); font-size: 11px; font-weight: 700; }
+
+        .about { padding: 94px 0; background: var(--forest); color: white; }
+        .about-grid { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: 75px; }
+        .about-mark { width: min(100%, 350px); aspect-ratio: 1 / 1; display: grid; place-items: center; justify-self: center; overflow: hidden; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; background: radial-gradient(circle at 50% 40%, rgba(214,232,122,.24), rgba(214,232,122,.02) 65%); }
+        .about-mark svg { width: 106px; height: 106px; color: var(--lime); opacity: .9; }
+        .about-copy .eyebrow { color: var(--lime); }
+        .about-copy h2 { max-width: 550px; margin-bottom: 20px; color: white; }
+        .about-copy > p { max-width: 560px; margin-bottom: 22px; color: rgba(255,255,255,.92); font-size: 16px; font-weight: 500; line-height: 1.85; }
+        .about-note { display: inline-flex; align-items: center; gap: 9px; margin: 1px 0 26px; padding: 12px 15px; border: 1px solid rgba(255,255,255,.35); color: rgba(255,255,255,.94); font-size: 14px; font-weight: 500; line-height: 1.6; }
+        .about-note strong { color: var(--lime); font-weight: 700; }
+
+        .contact { padding: 90px 0; background: var(--cream); }
+        .contact-panel { display: flex; align-items: center; justify-content: space-between; gap: 30px; padding: 42px 48px; background: var(--lime); }
+        .contact-copy .eyebrow { margin-bottom: 12px; color: var(--forest); }
+        .contact-copy h2 { max-width: 520px; color: var(--forest); font-size: clamp(31px, 4vw, 43px); }
+        .contact-copy p { margin: 12px 0 0; color: #3e533d; font-size: 15px; font-weight: 500; line-height: 1.7; }
+        .contact-placeholder { flex: 0 0 auto; max-width: 300px; padding: 19px 20px; border: 1px solid rgba(24,60,50,.4); color: var(--forest); font-size: 14px; font-weight: 500; line-height: 1.75; }
+        .contact-placeholder strong { display: block; margin-bottom: 4px; font-size: 15px; font-weight: 700; }
+        .contact-placeholder span { color: #344a35; }
+        .contact-placeholder a { display: block; }
+        .contact-placeholder a + a { margin-top: 12px; padding-top: 11px; border-top: 1px solid rgba(24,60,50,.2); }
+
+        .footer { padding: 26px 0; background: var(--forest-deep); color: rgba(255,255,255,.85); }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; font-size: 12px; font-weight: 500; }
+        .footer .brand { color: white; font-size: 13px; }
+        .footer .brand-mark { width: 29px; height: 29px; background: rgba(255,255,255,.12); }
+        .footer .brand-mark svg { width: 16px; height: 16px; }
+        .footer-note { max-width: 330px; text-align: right; line-height: 1.6; }
+
+        :focus-visible { outline: 3px solid #a8c345; outline-offset: 3px; }
+        @media (max-width: 900px) {
+            .shell { width: min(100% - 44px, 700px); }
+            .hero-content { width: min(100% - 44px, 700px); }
+            .hero { min-height: 590px; }
+            .hero::before { background-position: 58% center; }
+            .park-grid { grid-template-columns: repeat(2, 1fr); }
+            .experience-grid { gap: 40px; }
+            .experience-image, .experience-image img { min-height: 410px; height: 410px; }
+            .about-grid { gap: 42px; }
+            .about-mark { width: min(100%, 280px); }
+            .intro-inner { flex-wrap: wrap; justify-content: flex-start; padding: 22px 0; }
+            .intro-label { flex-basis: 100%; max-width: none; }
+        }
+        @media (max-width: 650px) {
+            html { scroll-padding-top: 70px; }
+            .shell { width: calc(100% - 40px); }
+            .announcement { font-size: 12px; }
+            .nav { min-height: 66px; }
+            .menu-toggle { display: inline-flex; }
+            .nav-links { position: absolute; top: 65px; left: 0; right: 0; display: none; align-items: stretch; gap: 0; padding: 9px 20px 17px; border-bottom: 1px solid var(--line); background: var(--paper); }
+            .nav-links.is-open { display: flex; flex-direction: column; }
+            .nav-links > a:not(.nav-cta) { padding: 13px 4px; border-bottom: 1px solid var(--line); }
+            .nav-cta { margin-top: 12px; }
+            .hero { min-height: 590px; }
+            .hero::before { background-position: 63% center; }
+            .hero-content { width: calc(100% - 40px); padding: 76px 0 98px; }
+            h1 { font-size: clamp(49px, 13vw, 70px); }
+            .hero-copy { max-width: 400px; font-size: 16px; }
+            .hero-note { right: 20px; bottom: 20px; font-size: 11px; }
+            .intro-inner { gap: 15px 25px; }
+            .intro-item { flex: 1 1 40%; font-size: 12px; }
+            .intro-item:last-child { display: none; }
+            .section { padding: 72px 0; }
+            .section-heading { display: block; margin-bottom: 27px; }
+            .section-lead { margin-top: 14px; }
+            .park-grid { grid-template-columns: 1fr; gap: 17px; }
+            .park-image { height: 230px; }
+            .park-description { min-height: 0; }
+            .experience-grid { grid-template-columns: 1fr; gap: 44px; }
+            .experience-image, .experience-image img { min-height: 340px; height: 340px; }
+            .image-caption { right: -7px; bottom: 17px; max-width: 178px; font-size: 15px; }
+            .about { padding: 72px 0; }
+            .about-grid { grid-template-columns: 1fr; gap: 36px; }
+            .about-mark { width: 170px; }
+            .about-mark svg { width: 72px; height: 72px; }
+            .contact { padding: 64px 0; }
+            .contact-panel { align-items: flex-start; flex-direction: column; padding: 29px 23px; }
+            .contact-placeholder { max-width: none; }
+            .footer-inner { align-items: flex-start; flex-direction: column; }
+            .footer-note { text-align: left; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to Uganda Tourism</h1>
-    <p>Explore the Pearl of Africa!</p>
+    <div class="announcement"><strong>Your Uganda adventure starts here.</strong> Locally guided, thoughtfully planned.</div>
+    <header class="header">
+        <nav class="nav shell" aria-label="Main navigation">
+            <a class="brand" href="#home" aria-label="Wild Uganda home">
+                <span class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M3 19.5 9.2 7l3.1 6.1 2.4-4.3L21 19.5H3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m6.8 19.5 4.5-6.1 2.8 3 2-2.2 3.1 5.3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="brand-name">WILD <span>UGANDA</span></span>
+            </a>
+            <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-links">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </button>
+            <div class="nav-links" id="primary-links">
+                <a href="#parks">National parks</a>
+                <a href="#experience">Why travel with me</a>
+                <a href="#about">About</a>
+                <a class="nav-cta" href="#contact">Plan your trip <span aria-hidden="true">↗</span></a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home" aria-labelledby="hero-title">
+            <div class="hero-content">
+                <div class="eyebrow">The Pearl of Africa</div>
+                <h1 id="hero-title">Find your<br>kind of <em>wild.</em></h1>
+                <p class="hero-copy">Big skies, ancient forests and moments you’ll carry home. Discover Uganda’s national parks with a local guide who makes every mile matter.</p>
+                <div class="hero-actions">
+                    <a class="button button-light" href="#parks">Explore the parks <span aria-hidden="true">→</span></a>
+                    <a class="text-link" href="#about">Get to know your guide <span aria-hidden="true">↗</span></a>
+                </div>
+            </div>
+            <div class="hero-note">UGANDA · EAST AFRICA</div>
+        </section>
+
+        <section class="intro-strip" aria-label="Tour highlights">
+            <div class="intro-inner shell">
+                <div class="intro-label">More than a destination.<br>A feeling that stays.</div>
+                <div class="intro-item"><span class="intro-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="9" r="2.2" stroke="currentColor" stroke-width="1.6"/></svg></span><span>Locally guided<br>experiences</span></div>
+                <div class="intro-item"><span class="intro-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span>Made for your<br>own pace</span></div>
+                <div class="intro-item"><span class="intro-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span><span>Wildlife worth<br>the journey</span></div>
+            </div>
+        </section>
+
+        <section class="section" id="parks" aria-labelledby="parks-title">
+            <div class="shell">
+                <div class="section-heading">
+                    <div>
+                        <div class="eyebrow">A country of wonders</div>
+                        <h2 id="parks-title">Choose your<br>great outdoors.</h2>
+                    </div>
+                    <p class="section-lead">From savannah game drives to misty mountain forests, every park has its own rhythm. Find the one that feels like yours.</p>
+                </div>
+                <div class="park-grid">
+                    <article class="park-card">
+                        <div class="park-image"><img src="photos/murchison-elephants.jpg" alt="Elephants on an open East African savannah" loading="lazy"><span class="park-tag">Big game &amp; boat safaris</span></div>
+                        <div class="park-body">
+                            <div class="park-title-row"><h3>Murchison Falls</h3><span class="park-location">Northwest Uganda</span></div>
+                            <p class="park-description">Watch the Nile squeeze through a dramatic gorge, then meet elephants and giraffes on the savannah.</p>
+                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $180 <small>/ person</small></span></div><a class="park-link" href="#contact">Ask about this trip <span aria-hidden="true">→</span></a></div>
+                        </div>
+                    </article>
+                    <article class="park-card">
+                        <div class="park-image"><img src="photos/queen-elephant.jpg" alt="African elephant walking through the grass" loading="lazy"><span class="park-tag">Savannah &amp; crater lakes</span></div>
+                        <div class="park-body">
+                            <div class="park-title-row"><h3>Queen Elizabeth</h3><span class="park-location">Western Uganda</span></div>
+                            <p class="park-description">Explore the Kazinga Channel, open plains and crater lakes in one of Uganda’s most varied parks.</p>
+                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $165 <small>/ person</small></span></div><a class="park-link" href="#contact">Ask about this trip <span aria-hidden="true">→</span></a></div>
+                        </div>
+                    </article>
+                    <article class="park-card">
+                        <div class="park-image"><img src="photos/bwindi-forest.jpg" alt="Sunlight filtering through a lush forest canopy" loading="lazy"><span class="park-tag">Gorilla trekking country</span></div>
+                        <div class="park-body">
+                            <div class="park-title-row"><h3>Bwindi Impenetrable</h3><span class="park-location">Southwest Uganda</span></div>
+                            <p class="park-description">Step into an ancient rainforest, alive with birds, rare plants and mountain gorillas.</p>
+                            <div class="park-footer"><div><span class="price-label">Sample forest day trip</span><span class="price">From $195 <small>/ person</small></span></div><a class="park-link" href="#contact">Ask about this trip <span aria-hidden="true">→</span></a></div>
+                        </div>
+                    </article>
+                    <article class="park-card">
+                        <div class="park-image"><img src="photos/rwenzori-mountains.jpg" alt="Green mountains beneath an open sky" loading="lazy"><span class="park-tag">Mountain adventure</span></div>
+                        <div class="park-body">
+                            <div class="park-title-row"><h3>Rwenzori Mountains</h3><span class="park-location">Western Uganda</span></div>
+                            <p class="park-description">Trade the savannah for glacier-carved peaks, high-altitude trails and extraordinary views.</p>
+                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $145 <small>/ person</small></span></div><a class="park-link" href="#contact">Ask about this trip <span aria-hidden="true">→</span></a></div>
+                        </div>
+                    </article>
+                    <article class="park-card">
+                        <div class="park-image"><img src="photos/lake-mburo.jpg" alt="Wildlife grazing on a wide grassland" loading="lazy"><span class="park-tag">Wildlife &amp; birding</span></div>
+                        <div class="park-body">
+                            <div class="park-title-row"><h3>Lake Mburo</h3><span class="park-location">Southwest Uganda</span></div>
+                            <p class="park-description">A lovely first taste of the wild: acacia woodland, zebras, antelope and peaceful lake views.</p>
+                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $120 <small>/ person</small></span></div><a class="park-link" href="#contact">Ask about this trip <span aria-hidden="true">→</span></a></div>
+                        </div>
+                    </article>
+                    <article class="park-card">
+                        <div class="park-image"><img src="photos/kibale-forest.jpg" alt="Golden light over a scenic open landscape" loading="lazy"><span class="park-tag">Primates &amp; forest walks</span></div>
+                        <div class="park-body">
+                            <div class="park-title-row"><h3>Kibale Forest</h3><span class="park-location">Western Uganda</span></div>
+                            <p class="park-description">Listen for chimpanzees in the treetops and wander among some of East Africa’s richest forests.</p>
+                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $155 <small>/ person</small></span></div><a class="park-link" href="#contact">Ask about this trip <span aria-hidden="true">→</span></a></div>
+                        </div>
+                    </article>
+                </div>
+                <p class="price-disclaimer"><strong>A note on prices:</strong> These are illustrative starting estimates for guided day trips, not official Uganda Wildlife Authority park-entry fees or a final quote. Your actual price depends on group size, transport, activities, accommodation and season. Gorilla permits, park fees and other extras may cost more. Ask for a tailored quote and confirm current fees before booking.</p>
+            </div>
+        </section>
+
+        <section class="section experience" id="experience" aria-labelledby="experience-title">
+            <div class="shell experience-grid">
+                <div class="experience-image">
+                    <img src="photos/uganda-savannah.jpg" alt="Expansive African landscape in warm afternoon light" loading="lazy">
+                    <div class="image-caption">Excellence is found in the unhurried moments.</div>
+                </div>
+                <div class="experience-copy">
+                    <div class="eyebrow">The journey is yours</div>
+                    <h2 id="experience-title">A Ugandan journey crafted exclusively for you.</h2>
+                    <p>True luxury lies in the details that resonate with you. Whether you are chasing the misty ridge lines of a gorilla trek, the golden hour of a private safari, or the quiet pulse of local cultures, we curate deeply personalized itineraries designed to match your distinct rhythm, taste, and passions.</p>
+                    <ul class="benefits">
+                        <li><span class="check" aria-hidden="true">✓</span><span><strong>Bespoke Curation:</strong> Custom-paced routes and hand-selected luxury lodges built entirely around your preferences.</span></li>
+                        <li><span class="check" aria-hidden="true">✓</span><span><strong>Absolute Transparency:</strong> Clear, comprehensive upfront investments with no hidden surprises.</span></li>
+                        <li><span class="check" aria-hidden="true">✓</span><span><strong>The True Local Lens:</strong> Deeply knowledgeable insider guidance from private specialists who live and breathe Uganda.</span></li>
+                    </ul>
+                    <a class="button" href="#contact">Start Designing Your Safari <span aria-hidden="true">→</span></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="about" id="about" aria-labelledby="about-title">
+            <div class="shell about-grid">
+                <div class="about-mark" aria-hidden="true">
+                    <svg viewBox="0 0 100 100" fill="none"><path d="M13 78 39 27l14 27 10-17 24 41H13Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="m29 78 18-24 13 14 8-10 15 20" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><circle cx="72" cy="27" r="8" stroke="currentColor" stroke-width="2"/></svg>
+                </div>
+                <div class="about-copy">
+                    <div class="eyebrow">A little about your guide</div>
+                    <h2 id="about-title">A local welcome makes all the difference.</h2>
+                    <p><strong>BYAMUKAMA GILBERT</strong> is an experienced driver with 8 years in Uganda’s tourism industry. Explore the national parks, wildlife and welcoming communities with a knowledgeable local at the wheel.</p>
+                    <div class="about-note"><strong>8 years of experience.</strong> Your local driver for discovering Uganda.</div>
+                    <div><a class="button button-light" href="#contact">Say hello <span aria-hidden="true">→</span></a></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contact" aria-labelledby="contact-title">
+            <div class="shell">
+                <div class="contact-panel">
+                    <div class="contact-copy">
+                        <div class="eyebrow">Your next chapter</div>
+                        <h2 id="contact-title">Let’s make your Uganda trip happen.</h2>
+                        <p>Tell me what you love, how long you have and when you’d like to come.</p>
+                    </div>
+                    <div class="contact-placeholder">
+                        <a href="https://wa.me/256783809579?text=Hi%2C%20I%27m%20interested%20in%20planning%20a%20Uganda%20trip." target="_blank" rel="noopener noreferrer"><strong>Message me on WhatsApp ↗</strong><span>+256 783 809 579<br>Tell me what kind of Uganda adventure you have in mind.</span></a>
+                        <a href="mailto:byamukamagilbert2025@gmail.com"><strong>Email me ↗</strong><span>byamukamagilbert2025@gmail.com</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="shell footer-inner">
+            <a class="brand" href="#home">
+                <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 19.5 9.2 7l3.1 6.1 2.4-4.3L21 19.5H3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
+                <span>WILD UGANDA</span>
+            </a>
+            <span>Made for the moments that take your breath away.</span>
+            <span class="footer-note">Trip estimates are indicative. Confirm current park fees and permit availability before booking.</span>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.querySelector(".menu-toggle");
+        const navigation = document.querySelector(".nav-links");
+
+        menuToggle.addEventListener("click", () => {
+            const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+            menuToggle.setAttribute("aria-expanded", String(!isOpen));
+            menuToggle.setAttribute("aria-label", isOpen ? "Open navigation menu" : "Close navigation menu");
+            navigation.classList.toggle("is-open", !isOpen);
+        });
+
+        navigation.addEventListener("click", (event) => {
+            if (event.target.closest("a")) {
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.setAttribute("aria-label", "Open navigation menu");
+                navigation.classList.remove("is-open");
+            }
+        });
+    </script>
 </body>
 </html>
