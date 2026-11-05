@@ -79,6 +79,15 @@
         .section-heading .eyebrow { color: var(--leaf); margin-bottom: 13px; }
         h2 { margin-bottom: 0; color: var(--forest); font-family: var(--serif); font-size: clamp(36px, 4.3vw, 53px); font-weight: 500; letter-spacing: -.045em; line-height: 1.12; }
         .section-lead { max-width: 365px; margin: 0 0 4px; color: #536057; font-size: 15px; line-height: 1.75; }
+        .destination-tools { display: grid; gap: 18px; margin: 0 0 28px; }
+        .destination-search { position: relative; max-width: 460px; }
+        .destination-search svg { position: absolute; top: 50%; left: 15px; width: 18px; height: 18px; color: var(--leaf); transform: translateY(-50%); pointer-events: none; }
+        .destination-search input { width: 100%; min-height: 49px; padding: 0 16px 0 44px; border: 1px solid #cbd9c4; border-radius: 4px; background: #fff; color: var(--ink); font-size: 14px; }
+        .destination-search input::placeholder { color: #657369; }
+        .destination-filters { display: flex; flex-wrap: wrap; gap: 9px; }
+        .filter-button { min-height: 38px; padding: 0 15px; border: 1px solid #cbd9c4; border-radius: 99px; background: transparent; color: #3e5542; font-size: 13px; font-weight: 600; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+        .filter-button:hover, .filter-button[aria-pressed="true"] { border-color: var(--forest); background: var(--forest); color: white; }
+        .destination-count { min-height: 20px; margin: -12px 0 0; color: #536057; font-size: 13px; font-weight: 600; }
         .park-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
         .park-card { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-top: 3px solid #789668; background: white; transition: box-shadow .22s, transform .22s; }
         .park-card:hover { box-shadow: 0 16px 38px rgba(27, 55, 42, .1); transform: translateY(-4px); }
@@ -100,6 +109,7 @@
         .park-link { display: inline-flex; align-items: center; gap: 5px; color: #385e3b; font-size: 12px; font-weight: 700; }
         .price-disclaimer { margin: 21px 0 0; color: #535f56; font-size: 13px; line-height: 1.75; }
         .price-disclaimer strong { color: var(--forest); font-weight: 700; }
+        .no-destinations { grid-column: 1 / -1; margin: 0; padding: 32px 20px; border: 1px dashed #b9cbb3; color: #435549; text-align: center; font-size: 15px; }
 
         .experience { overflow: hidden; background: var(--cream); }
         .experience-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 82px; }
@@ -251,72 +261,87 @@
                     </div>
                     <p class="section-lead">From savannah game drives to misty mountain forests, every park has its own rhythm. Find the one that feels like yours.</p>
                 </div>
+                <div class="destination-tools">
+                    <label class="destination-search">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                        <input id="destination-search" type="search" placeholder="Search parks and experiences..." autocomplete="off" aria-label="Search national parks">
+                    </label>
+                    <div class="destination-filters" role="group" aria-label="Filter destinations by experience">
+                        <button class="filter-button" type="button" data-filter="all" aria-pressed="true">All places</button>
+                        <button class="filter-button" type="button" data-filter="wildlife" aria-pressed="false">Wildlife &amp; safari</button>
+                        <button class="filter-button" type="button" data-filter="forest" aria-pressed="false">Forest &amp; primates</button>
+                        <button class="filter-button" type="button" data-filter="mountain" aria-pressed="false">Mountains &amp; hiking</button>
+                        <button class="filter-button" type="button" data-filter="lake" aria-pressed="false">Lakes &amp; escapes</button>
+                    </div>
+                    <p class="destination-count" id="destination-count" aria-live="polite"></p>
+                </div>
                 <div class="park-grid">
-                    <article class="park-card">
-                        <div class="park-image"><img src="photos/Murchison%20Falls%20National%20Park%20Safari%20Trips%20%26%20Tours%20_%20Timbuktu%20Travel.jpg" alt="Landscape in Murchison Falls National Park" loading="lazy"><span class="park-tag">Big game &amp; boat safaris</span></div>
+                    <article class="park-card" data-categories="wildlife">
+                        <div class="park-image"><img src="photos/Murchison%20Falls%20National%20Park%20Safari%20Trips%20%26%20Tours%20_%20Timbuktu%20Travel.jpg" alt="Landscape in Murchison Falls National Park" loading="lazy"><span class="park-tag">The Nile &amp; big-game safaris</span></div>
                         <div class="park-body">
                             <div class="park-title-row"><h3>Murchison Falls</h3><span class="park-location">Northwest Uganda</span></div>
-                            <p class="park-description">Watch the Nile squeeze through a dramatic gorge, then meet elephants and giraffes on the savannah.</p>
-                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $180 <small>/ person</small></span></div><a class="park-link" href="#contact">Ask about this trip <span aria-hidden="true">→</span></a></div>
+                            <p class="park-description">Feel the power of the Nile at the narrow Murchison Falls gorge, take a boat trip toward the falls, and look for elephants, giraffes, buffalo and other wildlife across the savannah.</p>
+                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $180 <small>/ person</small></span></div><a class="park-link" href="https://wa.me/256783809579?text=Hi%2C%20I%27d%20like%20to%20ask%20about%20a%20Murchison%20Falls%20trip." target="_blank" rel="noopener noreferrer">Ask about this trip <span aria-hidden="true">→</span></a></div>
                         </div>
                     </article>
-                    <article class="park-card">
-                        <div class="park-image queen-elizabeth-image"><img src="photos/queen%20elizabeth.jpg" alt="Lion resting in a tree in Queen Elizabeth National Park" loading="lazy"><span class="park-tag">Tree-climbing lions</span></div>
+                    <article class="park-card" data-categories="wildlife">
+                        <div class="park-image queen-elizabeth-image"><img src="photos/queen%20elizabeth.jpg" alt="Lion resting in a tree in Queen Elizabeth National Park" loading="lazy"><span class="park-tag">Tree-climbing lions &amp; boat trips</span></div>
                         <div class="park-body">
                             <div class="park-title-row"><h3>Queen Elizabeth</h3><span class="park-location">Western Uganda</span></div>
-                            <p class="park-description">Explore the Kazinga Channel, open plains and crater lakes in one of Uganda’s most varied parks.</p>
-                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $165 <small>/ person</small></span></div><a class="park-link" href="#contact">Ask about this trip <span aria-hidden="true">→</span></a></div>
+                            <p class="park-description">Cruise the wildlife-rich Kazinga Channel, explore open savannah and crater lakes, and keep watch for hippos, elephants and the famous tree-climbing lions of Ishasha.</p>
+                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $165 <small>/ person</small></span></div><a class="park-link" href="https://wa.me/256783809579?text=Hi%2C%20I%27d%20like%20to%20ask%20about%20a%20Queen%20Elizabeth%20National%20Park%20trip." target="_blank" rel="noopener noreferrer">Ask about this trip <span aria-hidden="true">→</span></a></div>
                         </div>
                     </article>
-                    <article class="park-card">
-                        <div class="park-image"><img src="photos/bwindi%20impenetrable.jpg" alt="Forest scenery in Bwindi Impenetrable National Park" loading="lazy"><span class="park-tag">Gorilla trekking country</span></div>
+                    <article class="park-card" data-categories="forest wildlife">
+                        <div class="park-image"><img src="photos/bwindi%20impenetrable.jpg" alt="Forest scenery in Bwindi Impenetrable National Park" loading="lazy"><span class="park-tag">Mountain gorilla trekking</span></div>
                         <div class="park-body">
                             <div class="park-title-row"><h3>Bwindi Impenetrable</h3><span class="park-location">Southwest Uganda</span></div>
-                            <p class="park-description">Step into an ancient rainforest, alive with birds, rare plants and mountain gorillas.</p>
-                            <div class="park-footer"><div><span class="price-label">Sample forest day trip</span><span class="price">From $195 <small>/ person</small></span></div><a class="park-link" href="#contact">Ask about this trip <span aria-hidden="true">→</span></a></div>
+                            <p class="park-description">Trek through steep, mist-covered rainforest with a ranger to visit a mountain gorilla family. Forest trails and rich birdlife make this a remarkable place to explore.</p>
+                            <div class="park-footer"><div><span class="price-label">Sample forest day trip</span><span class="price">From $195 <small>/ person</small></span></div><a class="park-link" href="https://wa.me/256783809579?text=Hi%2C%20I%27d%20like%20to%20ask%20about%20a%20Bwindi%20gorilla%20trek." target="_blank" rel="noopener noreferrer">Ask about this trip <span aria-hidden="true">→</span></a></div>
                         </div>
                     </article>
-                    <article class="park-card">
-                        <div class="park-image"><img src="photos/Rwenzori%20Mountains.jpg" alt="Rwenzori Mountains in western Uganda" loading="lazy"><span class="park-tag">Mountain adventure</span></div>
+                    <article class="park-card" data-categories="mountain forest">
+                        <div class="park-image"><img src="photos/Rwenzori%20Mountains.jpg" alt="Rwenzori Mountains in western Uganda" loading="lazy"><span class="park-tag">High-mountain trekking</span></div>
                         <div class="park-body">
                             <div class="park-title-row"><h3>Rwenzori Mountains</h3><span class="park-location">Western Uganda</span></div>
-                            <p class="park-description">Trade the savannah for glacier-carved peaks, high-altitude trails and extraordinary views.</p>
-                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $145 <small>/ person</small></span></div><a class="park-link" href="#contact">Ask about this trip <span aria-hidden="true">→</span></a></div>
+                            <p class="park-description">Follow challenging trails through montane forest, bamboo and high-altitude moorland toward the Rwenzori’s dramatic glacial peaks and alpine scenery.</p>
+                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $145 <small>/ person</small></span></div><a class="park-link" href="https://wa.me/256783809579?text=Hi%2C%20I%27d%20like%20to%20ask%20about%20a%20Rwenzori%20Mountains%20trip." target="_blank" rel="noopener noreferrer">Ask about this trip <span aria-hidden="true">→</span></a></div>
                         </div>
                     </article>
-                    <article class="park-card">
-                        <div class="park-image lake-mburo-image"><img src="photos/Lake%20Mburo%20National%20park.jpg" alt="A buffalo cooling off in Lake Mburo National Park" loading="lazy"><span class="park-tag">Wildlife &amp; birding</span></div>
+                    <article class="park-card" data-categories="wildlife">
+                        <div class="park-image lake-mburo-image"><img src="photos/Lake%20Mburo%20National%20park.jpg" alt="A buffalo cooling off in Lake Mburo National Park" loading="lazy"><span class="park-tag">Zebras, buffalo &amp; wetlands</span></div>
                         <div class="park-body">
                             <div class="park-title-row"><h3>Lake Mburo</h3><span class="park-location">Southwest Uganda</span></div>
-                            <p class="park-description">A lovely first taste of the wild: acacia woodland, zebras, antelope and peaceful lake views.</p>
-                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $120 <small>/ person</small></span></div><a class="park-link" href="#contact">Ask about this trip <span aria-hidden="true">→</span></a></div>
+                            <p class="park-description">Look for zebras, impalas and buffalo among acacia woodland and rolling savannah. Game drives, guided walks and boat trips offer different ways to enjoy the park.</p>
+                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $120 <small>/ person</small></span></div><a class="park-link" href="https://wa.me/256783809579?text=Hi%2C%20I%27d%20like%20to%20ask%20about%20a%20Lake%20Mburo%20trip." target="_blank" rel="noopener noreferrer">Ask about this trip <span aria-hidden="true">→</span></a></div>
                         </div>
                     </article>
-                    <article class="park-card">
-                        <div class="park-image"><img src="photos/kibale%20forest.jpg" alt="Forest in Kibale National Park" loading="lazy"><span class="park-tag">Primates &amp; forest walks</span></div>
+                    <article class="park-card" data-categories="forest wildlife">
+                        <div class="park-image"><img src="photos/kibale%20forest.jpg" alt="Forest in Kibale National Park" loading="lazy"><span class="park-tag">Chimpanzee tracking</span></div>
                         <div class="park-body">
                             <div class="park-title-row"><h3>Kibale Forest</h3><span class="park-location">Western Uganda</span></div>
-                            <p class="park-description">Listen for chimpanzees in the treetops and wander among some of East Africa’s richest forests.</p>
-                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $155 <small>/ person</small></span></div><a class="park-link" href="#contact">Ask about this trip <span aria-hidden="true">→</span></a></div>
+                            <p class="park-description">Join a guided forest walk to look for wild chimpanzees, then listen for monkeys and birds beneath Kibale’s lush canopy.</p>
+                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $155 <small>/ person</small></span></div><a class="park-link" href="https://wa.me/256783809579?text=Hi%2C%20I%27d%20like%20to%20ask%20about%20a%20Kibale%20Forest%20trip." target="_blank" rel="noopener noreferrer">Ask about this trip <span aria-hidden="true">→</span></a></div>
                         </div>
                     </article>
-                    <article class="park-card">
-                        <div class="park-image"><img src="photos/lake%20bunyonyi.jpg" alt="Lake Bunyonyi in southwestern Uganda" loading="lazy"><span class="park-tag">Lake &amp; island escape</span></div>
+                    <article class="park-card" data-categories="lake">
+                        <div class="park-image"><img src="photos/lake%20bunyonyi.jpg" alt="Lake Bunyonyi in southwestern Uganda" loading="lazy"><span class="park-tag">Canoes, islands &amp; birdlife</span></div>
                         <div class="park-body">
                             <div class="park-title-row"><h3>Lake Bunyonyi</h3><span class="park-location">Southwest Uganda</span></div>
-                            <p class="park-description">Slow down among the lake’s green hills and islands, with time for canoeing and lakeside views.</p>
-                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $130 <small>/ person</small></span></div><a class="park-link" href="#contact">Ask about this trip <span aria-hidden="true">→</span></a></div>
+                            <p class="park-description">Unwind beside a highland lake dotted with green islands. Paddle a traditional canoe, enjoy the hillside views and spot birds around the quiet shore.</p>
+                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $130 <small>/ person</small></span></div><a class="park-link" href="https://wa.me/256783809579?text=Hi%2C%20I%27d%20like%20to%20ask%20about%20a%20Lake%20Bunyonyi%20trip." target="_blank" rel="noopener noreferrer">Ask about this trip <span aria-hidden="true">→</span></a></div>
                         </div>
                     </article>
-                    <article class="park-card">
-                        <div class="park-image"><img src="photos/Semuliki_%20Hot%20Springs%20%26%20Birds.jpg" alt="Hot springs and forest scenery in Semuliki National Park" loading="lazy"><span class="park-tag">Hot springs &amp; birding</span></div>
+                    <article class="park-card" data-categories="forest wildlife">
+                        <div class="park-image"><img src="photos/Semuliki_%20Hot%20Springs%20%26%20Birds.jpg" alt="Hot springs and forest scenery in Semuliki National Park" loading="lazy"><span class="park-tag">Sempaya hot springs &amp; birds</span></div>
                         <div class="park-body">
                             <div class="park-title-row"><h3>Semuliki National Park</h3><span class="park-location">Western Uganda</span></div>
-                            <p class="park-description">Explore lowland rainforest, rich birdlife and the Sempaya hot springs in the Semuliki Valley.</p>
-                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $150 <small>/ person</small></span></div><a class="park-link" href="#contact">Ask about this trip <span aria-hidden="true">→</span></a></div>
+                            <p class="park-description">Walk through lowland rainforest to the steaming Sempaya hot springs, and look for forest birds and primates in this distinctive western rift-valley landscape.</p>
+                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $150 <small>/ person</small></span></div><a class="park-link" href="https://wa.me/256783809579?text=Hi%2C%20I%27d%20like%20to%20ask%20about%20a%20Semuliki%20National%20Park%20trip." target="_blank" rel="noopener noreferrer">Ask about this trip <span aria-hidden="true">→</span></a></div>
                         </div>
                     </article>
                 </div>
+                <p class="no-destinations" id="no-destinations" hidden>No destinations match your search. Try another park name or filter.</p>
                 <p class="price-disclaimer"><strong>A note on prices:</strong> These are illustrative starting estimates for guided day trips, not official Uganda Wildlife Authority park-entry fees or a final quote. Your actual price depends on group size, transport, activities, accommodation and season. Gorilla permits, park fees and other extras may cost more. Ask for a tailored quote and confirm current fees before booking.</p>
             </div>
         </section>
@@ -402,6 +427,45 @@
                 navigation.classList.remove("is-open");
             }
         });
+
+        const destinationSearch = document.querySelector("#destination-search");
+        const destinationCards = [...document.querySelectorAll(".park-card")];
+        const destinationCount = document.querySelector("#destination-count");
+        const noDestinations = document.querySelector("#no-destinations");
+        const filterButtons = [...document.querySelectorAll(".filter-button")];
+        let activeFilter = "all";
+
+        function updateDestinations() {
+            const query = destinationSearch.value.trim().toLocaleLowerCase();
+            let visibleCount = 0;
+
+            destinationCards.forEach((card) => {
+                const matchesQuery = card.textContent.toLocaleLowerCase().includes(query);
+                const categories = card.dataset.categories.split(" ");
+                const matchesFilter = activeFilter === "all" || categories.includes(activeFilter);
+                const isVisible = matchesQuery && matchesFilter;
+
+                card.hidden = !isVisible;
+                if (isVisible) visibleCount += 1;
+            });
+
+            destinationCount.textContent = `${visibleCount} ${visibleCount === 1 ? "destination" : "destinations"} found`;
+            noDestinations.hidden = visibleCount > 0;
+        }
+
+        destinationSearch.addEventListener("input", updateDestinations);
+
+        filterButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                activeFilter = button.dataset.filter;
+                filterButtons.forEach((filterButton) => {
+                    filterButton.setAttribute("aria-pressed", String(filterButton === button));
+                });
+                updateDestinations();
+            });
+        });
+
+        updateDestinations();
     </script>
 </body>
 </html>
