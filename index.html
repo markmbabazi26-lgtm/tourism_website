@@ -50,7 +50,7 @@
         .menu-toggle { display: none; align-items: center; justify-content: center; width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 4px; background: transparent; color: var(--forest); cursor: pointer; }
 
         .hero { position: relative; min-height: 630px; display: flex; align-items: center; overflow: hidden; color: white; background: #233d31; }
-        .hero::before { position: absolute; inset: 0; content: ""; background: linear-gradient(90deg, rgba(13, 30, 25, .79) 0%, rgba(15, 32, 27, .61) 43%, rgba(15, 32, 27, .1) 100%), linear-gradient(0deg, rgba(12, 24, 21, .24), transparent 38%), url("photos/uganda-savannah.jpg") center 48%/cover; }
+        .hero::before { position: absolute; inset: 0; content: ""; background: linear-gradient(90deg, rgba(13, 30, 25, .79) 0%, rgba(15, 32, 27, .61) 43%, rgba(15, 32, 27, .1) 100%), linear-gradient(0deg, rgba(12, 24, 21, .24), transparent 38%), url("photos/Murchison%20Falls%20National%20Park%20Safari%20Trips%20%26%20Tours%20_%20Timbuktu%20Travel.jpg") center 48%/cover; }
         .hero-content { position: relative; z-index: 1; width: min(1160px, calc(100% - 64px)); margin-inline: auto; padding: 82px 0 112px; }
         .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 21px; color: var(--lime); font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
         .eyebrow::before { width: 24px; height: 1px; content: ""; background: currentColor; }
@@ -102,7 +102,7 @@
         .experience { overflow: hidden; background: var(--cream); }
         .experience-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 82px; }
         .experience-image { position: relative; min-height: 477px; }
-        .experience-image img { width: 100%; height: 477px; object-fit: cover; }
+        .experience-image img { width: 100%; height: 477px; object-fit: cover; object-position: center 62%; }
         .image-caption { position: absolute; right: -20px; bottom: 25px; max-width: 210px; padding: 16px 19px; background: var(--lime); color: var(--forest); font-family: var(--serif); font-size: 17px; line-height: 1.35; }
         .experience-copy .eyebrow { color: var(--leaf); }
         .experience-copy h2 { max-width: 450px; margin-bottom: 20px; }
@@ -113,8 +113,8 @@
 
         .about { padding: 94px 0; background: var(--forest); color: white; }
         .about-grid { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: 75px; }
-        .about-mark { width: min(100%, 350px); aspect-ratio: 1 / 1; display: grid; place-items: center; justify-self: center; overflow: hidden; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; background: radial-gradient(circle at 50% 40%, rgba(214,232,122,.24), rgba(214,232,122,.02) 65%); }
-        .about-mark svg { width: 106px; height: 106px; color: var(--lime); opacity: .9; }
+        .about-mark { width: min(100%, 350px); aspect-ratio: 1 / 1; justify-self: center; overflow: hidden; border: 2px solid rgba(214,232,122,.65); border-radius: 50%; background: var(--forest-deep); }
+        .about-mark img { width: 100%; height: 100%; object-fit: cover; object-position: 70% center; }
         .about-copy .eyebrow { color: var(--lime); }
         .about-copy h2 { max-width: 550px; margin-bottom: 20px; color: white; }
         .about-copy > p { max-width: 560px; margin-bottom: 22px; color: rgba(255,255,255,.92); font-size: 16px; font-weight: 500; line-height: 1.85; }
@@ -184,7 +184,6 @@
             .about { padding: 72px 0; }
             .about-grid { grid-template-columns: 1fr; gap: 36px; }
             .about-mark { width: 170px; }
-            .about-mark svg { width: 72px; height: 72px; }
             .contact { padding: 64px 0; }
             .contact-panel { align-items: flex-start; flex-direction: column; padding: 29px 23px; }
             .contact-placeholder { max-width: none; }
@@ -252,7 +251,7 @@
                 </div>
                 <div class="park-grid">
                     <article class="park-card">
-                        <div class="park-image"><img src="photos/murchison-elephants.jpg" alt="Elephants on an open East African savannah" loading="lazy"><span class="park-tag">Big game &amp; boat safaris</span></div>
+                        <div class="park-image"><img src="photos/Murchison%20Falls%20National%20Park%20Safari%20Trips%20%26%20Tours%20_%20Timbuktu%20Travel.jpg" alt="Landscape in Murchison Falls National Park" loading="lazy"><span class="park-tag">Big game &amp; boat safaris</span></div>
                         <div class="park-body">
                             <div class="park-title-row"><h3>Murchison Falls</h3><span class="park-location">Northwest Uganda</span></div>
                             <p class="park-description">Watch the Nile squeeze through a dramatic gorge, then meet elephants and giraffes on the savannah.</p>
@@ -260,7 +259,7 @@
                         </div>
                     </article>
                     <article class="park-card">
-                        <div class="park-image"><img src="photos/queen-elephant.jpg" alt="African elephant walking through the grass" loading="lazy"><span class="park-tag">Savannah &amp; crater lakes</span></div>
+                        <div class="park-image"><img src="photos/queen%20elizabeth.jpg" alt="Scenery in Queen Elizabeth National Park" loading="lazy"><span class="park-tag">Savannah &amp; crater lakes</span></div>
                         <div class="park-body">
                             <div class="park-title-row"><h3>Queen Elizabeth</h3><span class="park-location">Western Uganda</span></div>
                             <p class="park-description">Explore the Kazinga Channel, open plains and crater lakes in one of Uganda’s most varied parks.</p>
@@ -268,7 +267,7 @@
                         </div>
                     </article>
                     <article class="park-card">
-                        <div class="park-image"><img src="photos/bwindi-forest.jpg" alt="Sunlight filtering through a lush forest canopy" loading="lazy"><span class="park-tag">Gorilla trekking country</span></div>
+                        <div class="park-image"><img src="photos/bwindi%20impenetrable.jpg" alt="Forest scenery in Bwindi Impenetrable National Park" loading="lazy"><span class="park-tag">Gorilla trekking country</span></div>
                         <div class="park-body">
                             <div class="park-title-row"><h3>Bwindi Impenetrable</h3><span class="park-location">Southwest Uganda</span></div>
                             <p class="park-description">Step into an ancient rainforest, alive with birds, rare plants and mountain gorillas.</p>
@@ -276,7 +275,7 @@
                         </div>
                     </article>
                     <article class="park-card">
-                        <div class="park-image"><img src="photos/rwenzori-mountains.jpg" alt="Green mountains beneath an open sky" loading="lazy"><span class="park-tag">Mountain adventure</span></div>
+                        <div class="park-image"><img src="photos/Rwenzori%20Mountains.jpg" alt="Rwenzori Mountains in western Uganda" loading="lazy"><span class="park-tag">Mountain adventure</span></div>
                         <div class="park-body">
                             <div class="park-title-row"><h3>Rwenzori Mountains</h3><span class="park-location">Western Uganda</span></div>
                             <p class="park-description">Trade the savannah for glacier-carved peaks, high-altitude trails and extraordinary views.</p>
@@ -284,7 +283,7 @@
                         </div>
                     </article>
                     <article class="park-card">
-                        <div class="park-image"><img src="photos/lake-mburo.jpg" alt="Wildlife grazing on a wide grassland" loading="lazy"><span class="park-tag">Wildlife &amp; birding</span></div>
+                        <div class="park-image"><img src="photos/Lake%20Mburo%20National%20park.jpg" alt="Landscape in Lake Mburo National Park" loading="lazy"><span class="park-tag">Wildlife &amp; birding</span></div>
                         <div class="park-body">
                             <div class="park-title-row"><h3>Lake Mburo</h3><span class="park-location">Southwest Uganda</span></div>
                             <p class="park-description">A lovely first taste of the wild: acacia woodland, zebras, antelope and peaceful lake views.</p>
@@ -292,11 +291,27 @@
                         </div>
                     </article>
                     <article class="park-card">
-                        <div class="park-image"><img src="photos/kibale-forest.jpg" alt="Golden light over a scenic open landscape" loading="lazy"><span class="park-tag">Primates &amp; forest walks</span></div>
+                        <div class="park-image"><img src="photos/kibale%20forest.jpg" alt="Forest in Kibale National Park" loading="lazy"><span class="park-tag">Primates &amp; forest walks</span></div>
                         <div class="park-body">
                             <div class="park-title-row"><h3>Kibale Forest</h3><span class="park-location">Western Uganda</span></div>
                             <p class="park-description">Listen for chimpanzees in the treetops and wander among some of East Africa’s richest forests.</p>
                             <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $155 <small>/ person</small></span></div><a class="park-link" href="#contact">Ask about this trip <span aria-hidden="true">→</span></a></div>
+                        </div>
+                    </article>
+                    <article class="park-card">
+                        <div class="park-image"><img src="photos/lake%20bunyonyi.jpg" alt="Lake Bunyonyi in southwestern Uganda" loading="lazy"><span class="park-tag">Lake &amp; island escape</span></div>
+                        <div class="park-body">
+                            <div class="park-title-row"><h3>Lake Bunyonyi</h3><span class="park-location">Southwest Uganda</span></div>
+                            <p class="park-description">Slow down among the lake’s green hills and islands, with time for canoeing and lakeside views.</p>
+                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $130 <small>/ person</small></span></div><a class="park-link" href="#contact">Ask about this trip <span aria-hidden="true">→</span></a></div>
+                        </div>
+                    </article>
+                    <article class="park-card">
+                        <div class="park-image"><img src="photos/Semuliki_%20Hot%20Springs%20%26%20Birds.jpg" alt="Hot springs and forest scenery in Semuliki National Park" loading="lazy"><span class="park-tag">Hot springs &amp; birding</span></div>
+                        <div class="park-body">
+                            <div class="park-title-row"><h3>Semuliki National Park</h3><span class="park-location">Western Uganda</span></div>
+                            <p class="park-description">Explore lowland rainforest, rich birdlife and the Sempaya hot springs in the Semuliki Valley.</p>
+                            <div class="park-footer"><div><span class="price-label">Sample guided day trip</span><span class="price">From $150 <small>/ person</small></span></div><a class="park-link" href="#contact">Ask about this trip <span aria-hidden="true">→</span></a></div>
                         </div>
                     </article>
                 </div>
@@ -307,7 +322,7 @@
         <section class="section experience" id="experience" aria-labelledby="experience-title">
             <div class="shell experience-grid">
                 <div class="experience-image">
-                    <img src="photos/uganda-savannah.jpg" alt="Expansive African landscape in warm afternoon light" loading="lazy">
+                    <img src="photos/happy%20clients.jpeg" alt="Happy Crest Tours and Safaris clients sharing a moment with their local guide" loading="lazy">
                     <div class="image-caption">Excellence is found in the unhurried moments.</div>
                 </div>
                 <div class="experience-copy">
@@ -326,8 +341,8 @@
 
         <section class="about" id="about" aria-labelledby="about-title">
             <div class="shell about-grid">
-                <div class="about-mark" aria-hidden="true">
-                    <svg viewBox="0 0 100 100" fill="none"><path d="M13 78 39 27l14 27 10-17 24 41H13Z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="m29 78 18-24 13 14 8-10 15 20" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><circle cx="72" cy="27" r="8" stroke="currentColor" stroke-width="2"/></svg>
+                <div class="about-mark">
+                    <img src="photos/Byamukama%20gilbert.jpeg" alt="Byamukama Gilbert, tour guide and driver">
                 </div>
                 <div class="about-copy">
                     <div class="eyebrow">A little about your guide</div>
