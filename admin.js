@@ -53,7 +53,6 @@
     $("#stat-cancelled").textContent = rows.filter(x=>x.status==="cancelled").length;
     body.innerHTML = rows.length ? rows.map(b => `<tr><td><strong>${esc(b.customer_name)}</strong><br>${esc(b.email || "No email")}</td><td>${esc(b.destination)}<br><small>${esc(b.experience || "")}</small></td><td>${esc(b.start_date || "Flexible")}</td><td>${esc(b.travellers)}</td><td>${esc(b.message || "—")}</td><td><select data-booking-status="${esc(b.id)}"><option value="pending" ${b.status==="pending"?"selected":""}>Pending</option><option value="confirmed" ${b.status==="confirmed"?"selected":""}>Confirmed</option><option value="cancelled" ${b.status==="cancelled"?"selected":""}>Cancelled</option></select></td></tr>`).join("") : "<tr><td colspan='6'>No booking requests yet.</td></tr>";
     body.querySelectorAll("[data-booking-status]").forEach(select => select.addEventListener("change", async () => {
-      const previousStatus = select.dataset.previousStatus || "";
       const { error: updateError } = await db.from("bookings").update({status:select.value}).eq("id",select.dataset.bookingStatus);
       if (updateError) { message("#booking-message",updateError.message,true); return; }
       const newStatus = select.value;
