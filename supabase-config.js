@@ -1,7 +1,6 @@
-// Public Supabase project settings. These two values are safe to expose in a browser
-// when Row Level Security is enabled and policies in supabase/schema.sql are applied.
-// Replace the placeholders with the Project URL and anon/publishable key from Supabase.
+// Public Supabase project settings. Publishable keys are intended for browser use.
+// Database access is protected by the Row Level Security policies in supabase/schema.sql.
 window.CREST_SUPABASE_CONFIG = {
-  url: "YOUR_SUPABASE_PROJECT_URL",
-  anonKey: "YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY"
+  url: "https://tlivrzlnkxiuzpgpxsqr.supabase.co",
+  anonKey: "sb_publishable_Upw7pppySQLlEOKX_KJU5g_-u_ajcrf"
 };
