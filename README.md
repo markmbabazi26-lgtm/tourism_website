@@ -31,14 +31,16 @@ The admin area is at `/admin.html`. Only user IDs listed in `admin_users` can ac
 
 The admin dashboard can notify customers when a booking is marked **confirmed** or **cancelled**. Email delivery uses a Supabase Edge Function and Resend; no email-provider secret is placed in the public website.
 
-1. Create a Resend account at https://resend.com/ and verify a domain or sender address you control.
-2. In Supabase, open **Edge Functions** and deploy the function at `supabase/functions/send-booking-status-email/index.ts` (or deploy it with the Supabase CLI).
-3. Set these Edge Function secrets in Supabase **Project Settings → Edge Functions → Secrets**:
+1. Create a Resend account at https://resend.com/ and verify a domain you control. A sender address on an unverified domain will not work for normal customer delivery.
+2. In Supabase, open **Edge Functions → Deploy a new function → Via Editor**. Name it `send-booking-status-email`, then copy the complete code from [the GitHub function file](https://github.com/markmbabazi26-lgtm/tourism_website/blob/main/supabase/functions/send-booking-status-email/index.ts) into the editor and deploy it. You can also deploy from the Supabase CLI.
+3. Open **Edge Function Secrets** and add:
    - `RESEND_API_KEY` — your private Resend API key.
-   - `EMAIL_FROM` — a sender address on the domain verified with Resend, for example `Crest Tours <bookings@your-verified-domain.com>`.
-   - Supabase provides `SUPABASE_URL`, `SUPABASE_ANON_KEY`, and `SUPABASE_SERVICE_ROLE_KEY` to deployed functions; if deploying in a custom environment, set them as protected secrets.
-4. Ensure the function requires a valid JWT. It checks the signed-in user against `public.admin_users` before it can send.
+   - `EMAIL_FROM` — a sender address on your verified Resend domain, for example `Crest Tours <bookings@your-verified-domain.com>`.
+   Supabase automatically provides project URL and key environment variables. The function supports both current publishable/secret keys and legacy anon/service-role variables.
+4. In the function's settings, turn off the gateway's legacy **Verify JWT** check if it rejects the project's newer JWT format. The function itself validates the user's session and checks `public.admin_users` before sending any email. Do not make the function publicly trusted just because gateway verification is off.
 5. In the admin dashboard, change a booking to **Confirmed** or **Cancelled**. The dashboard reports whether the email was sent. Pending status changes do not send an email.
+
+Never paste the Resend API key or any Supabase secret key into GitHub or the browser.
 
 Never put the Resend API key or Supabase service-role key in `admin.js`, `supabase-config.js`, HTML, or any public GitHub file. A status update remains saved even if email delivery fails; the dashboard will show a warning.
 
