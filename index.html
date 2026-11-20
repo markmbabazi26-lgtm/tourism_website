@@ -421,7 +421,7 @@
                 <div class="trip-copy">
                     <div class="eyebrow">Start planning</div>
                     <h2 id="plan-title">Let’s shape a trip around you.</h2>
-                    <p>Share a few details about the Uganda experience you have in mind. Your enquiry will be prepared as a WhatsApp message so you can review it and send it directly.</p>
+                    <p>Share a few details about the Uganda experience you have in mind. Your request will be securely saved for the Crest team to review and confirm.</p>
                     <div class="trip-points">
                         <div class="trip-point"><b>1</b><span>Choose the places or experiences that interest you.</span></div>
                         <div class="trip-point"><b>2</b><span>Tell us your preferred dates and group size.</span></div>
@@ -436,8 +436,8 @@
                     <div class="form-field"><label for="traveller-count">Number of travellers *</label><input id="traveller-count" name="travellers" type="number" min="1" max="30" value="2" required></div>
                     <div class="form-field"><label for="trip-style">Experience you prefer</label><select id="trip-style" name="style"><option>Wildlife safari</option><option>Gorilla trekking</option><option>Chimpanzee tracking</option><option>Hiking and nature</option><option>Lakes and relaxation</option><option>A mix of experiences</option><option>I'd like advice</option></select></div>
                     <div class="form-field full"><label for="trip-message">Anything else we should know?</label><textarea id="trip-message" name="message" maxlength="1200" placeholder="Trip length, interests, budget range or any questions..."></textarea></div>
-                    <button class="button form-submit" type="submit">Prepare WhatsApp enquiry <span aria-hidden="true">↗</span></button>
-                    <p class="form-note">This sends no payment and does not confirm a booking. You will review the message in WhatsApp; dates, permits and prices must be confirmed directly.</p>
+                    <button class="button form-submit" type="submit">Submit booking request <span aria-hidden="true">↗</span></button>
+                    <p class="form-note">Your request is saved as pending. No payment is taken and no booking is confirmed until the team verifies availability, permits and the final price.</p>
                 </form>
             </div>
         </section>
@@ -486,7 +486,9 @@
     </footer>
 
     <a class="whatsapp-float" href="https://wa.me/256783809579?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20a%20Uganda%20trip." target="_blank" rel="noopener noreferrer" aria-label="Chat with Crest Tours and Safaris on WhatsApp">WhatsApp <span aria-hidden="true">↗</span></a>
-    <script src="enhancements.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="booking-system.js" defer></script>
     <script>
         const menuToggle = document.querySelector(".menu-toggle");
         const navigation = document.querySelector(".nav-links");
