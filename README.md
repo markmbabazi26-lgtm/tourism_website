@@ -1,31 +1,43 @@
 # Crest Tours and Safaris — Uganda
 
-A responsive, single-page tourism website for showcasing Ugandan destinations and helping visitors contact the tour guide.
+A responsive tourism website with a shared online booking database and an administrator dashboard.
 
-## Main features
-- Destination cards for Murchison Falls, Queen Elizabeth, Bwindi, Rwenzori, Lake Mburo, Kibale, Lake Bunyonyi and Semuliki.
-- Destination text search and category filters.
-- Responsive mobile navigation.
-- Existing photographs and Crest Tours and Safaris logo.
-- Trip enquiry planner that prepares a WhatsApp message using the contact number already displayed on the site.
-- FAQ section explaining indicative prices, multi-park trips, permits and enquiries.
-- Social sharing metadata, accessible form labels and mobile-friendly layout.
+## Website features
+- Existing Uganda destination cards, search/filter, photographs and Crest branding.
+- Customer trip request form connected to Supabase.
+- Administrator sign-in, booking status management and summary counts.
+- Tour package management (add, show/hide).
+- Payment record viewing.
 
-## Files
-- `index.html` — website structure, styling and destination information.
-- `enhancements.js` — trip enquiry form behavior.
-- `photos/` — existing logo and photographs.
+## Connect the live database
 
-## Trip enquiry form
-The form does not store personal details on a server and does not make a booking. It validates the required fields in the browser and prepares a WhatsApp message for the visitor to review and send. A WhatsApp conversation or enquiry is not a confirmed reservation. Confirm itinerary, park fees, permit availability and final prices directly before payment.
+The code is prepared for Supabase, but real booking storage will not work until a Supabase project is connected and the SQL is applied.
 
-## Editing destinations and prices
-Edit the relevant destination card in `index.html`. Keep the displayed prices clearly described as indicative estimates unless they have been confirmed as current quotations. Check all image paths against the filenames in `photos/`.
+1. Create a project at https://supabase.com/ and keep the database password private.
+2. In Supabase, open **SQL Editor**, create a query, paste all of `supabase/schema.sql`, and run it.
+3. Open **Project Settings → API** (or API Keys) and copy the Project URL and anon/publishable key.
+4. Add those two public values to `supabase-config.js`, replacing the placeholders. Never put a service-role key or database password in browser code or GitHub.
+5. In Supabase **Authentication → Users**, create the first administrator with a strong password. Disable public sign-ups in Auth settings.
+6. Copy that user's UUID. In SQL Editor, run this after replacing the example UUID:
+   ```sql
+   insert into public.admin_users (user_id)
+   values ('PASTE-ADMIN-USER-UUID-HERE');
+   ```
+7. Publish with GitHub Pages: **Settings → Pages → Deploy from a branch → main → /(root)**.
 
-## Publish with GitHub Pages
-1. Open the repository's **Settings → Pages**.
-2. Choose **Deploy from a branch**.
-3. Select the `main` branch and `/(root)` folder.
-4. Save and wait for GitHub Pages to publish the site.
+The admin area is at `/admin.html`. Only user IDs listed in `admin_users` can access it. Do not share administrator passwords.
 
-The website is static HTML/CSS/JavaScript. It does not include a server-side booking system, payment processing or administrator dashboard.
+## Booking workflow and limitations
+- Public visitors can submit booking requests. New requests are saved as **pending** and are visible to signed-in administrators.
+- Staff can mark requests pending, confirmed or cancelled and add/hide tour packages.
+- Payment records are stored in the database and shown in the dashboard. This first version does not yet include a payment-entry form or collect online/mobile-money payments.
+- Submitting a request does not confirm a reservation or take payment. Staff must verify dates, park/permit availability, itinerary and final quotation directly.
+- Before accepting public traffic, add CAPTCHA/spam protection, email notifications, database backups, and test policies with anonymous and admin accounts.
+
+## Main files
+- `index.html` — public website and trip planner.
+- `booking-system.js` — saves trip requests to Supabase.
+- `supabase-config.js` — public project URL and anon/publishable key placeholders.
+- `admin.html`, `admin.js` — administrator dashboard.
+- `supabase/schema.sql` — database tables, validation and row-level security.
+- `photos/` — existing photographs and logo.
