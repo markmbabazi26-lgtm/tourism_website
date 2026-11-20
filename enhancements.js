@@ -32,7 +32,7 @@
       "Additional details: " + (values.get("message") || "None")
     ];
 
-    const whatsappUrl = "https://wa.me/256783809579?text=" + encodeURIComponent(lines.join("\n"));
+    const whatsappUrl = "https://wa.me/256700900395?text=" + encodeURIComponent(lines.join("\n"));
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   });
 })();
