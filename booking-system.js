@@ -8,6 +8,14 @@
 
   if (!configured || !window.supabase) {
     console.warn("Crest booking system: add Supabase settings in supabase-config.js.");
+    const unconfiguredForm = document.querySelector("#trip-enquiry-form");
+    if (unconfiguredForm) {
+      unconfiguredForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const note = unconfiguredForm.querySelector(".form-note");
+        if (note) note.textContent = "Online booking is being connected. Please contact Crest Tours and Safaris on WhatsApp for now.";
+      });
+    }
     return;
   }
 
