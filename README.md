@@ -27,6 +27,21 @@ The code is prepared for Supabase, but real booking storage will not work until 
 
 The admin area is at `/admin.html`. Only user IDs listed in `admin_users` can access it. Do not share administrator passwords.
 
+## Customer email notifications
+
+The admin dashboard can notify customers when a booking is marked **confirmed** or **cancelled**. Email delivery uses a Supabase Edge Function and Resend; no email-provider secret is placed in the public website.
+
+1. Create a Resend account at https://resend.com/ and verify a domain or sender address you control.
+2. In Supabase, open **Edge Functions** and deploy the function at `supabase/functions/send-booking-status-email/index.ts` (or deploy it with the Supabase CLI).
+3. Set these Edge Function secrets in Supabase **Project Settings → Edge Functions → Secrets**:
+   - `RESEND_API_KEY` — your private Resend API key.
+   - `EMAIL_FROM` — a sender address on the domain verified with Resend, for example `Crest Tours <bookings@your-verified-domain.com>`.
+   - Supabase provides `SUPABASE_URL`, `SUPABASE_ANON_KEY`, and `SUPABASE_SERVICE_ROLE_KEY` to deployed functions; if deploying in a custom environment, set them as protected secrets.
+4. Ensure the function requires a valid JWT. It checks the signed-in user against `public.admin_users` before it can send.
+5. In the admin dashboard, change a booking to **Confirmed** or **Cancelled**. The dashboard reports whether the email was sent. Pending status changes do not send an email.
+
+Never put the Resend API key or Supabase service-role key in `admin.js`, `supabase-config.js`, HTML, or any public GitHub file. A status update remains saved even if email delivery fails; the dashboard will show a warning.
+
 ## Booking workflow and limitations
 - Public visitors can submit booking requests. New requests are saved as **pending** and are visible to signed-in administrators.
 - Staff can mark requests pending, confirmed or cancelled and add/hide tour packages.
