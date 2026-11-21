@@ -13,7 +13,9 @@ Deno.serve(async (request) => {
   if (request.method !== "POST") return json({ error: "Method not allowed." }, 405);
   try {
     const supabaseUrl = Deno.env.get("SUPABASE_URL");
-    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || Deno.env.get("SUPABASE_SECRET_KEY");
+    const secretKeys = JSON.parse(Deno.env.get("SUPABASE_SECRET_KEYS") || "{}");
+    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ||
+      Deno.env.get("SUPABASE_SECRET_KEY") || secretKeys.default || Object.values(secretKeys)[0];
     const turnstileSecret = Deno.env.get("TURNSTILE_SECRET_KEY");
     if (!supabaseUrl || !serviceKey || !turnstileSecret) return json({ error: "Booking security is not configured yet." }, 503);
 
