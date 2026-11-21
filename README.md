@@ -58,3 +58,41 @@ Never put the Resend API key or Supabase service-role key in `admin.js`, `supaba
 - `admin.html`, `admin.js` — administrator dashboard.
 - `supabase/schema.sql` — database tables, validation and row-level security.
 - `photos/` — existing photographs and logo.
+
+
+## Required booking form security setup
+
+The public booking form now requires a customer phone/WhatsApp number and uses Cloudflare Turnstile. Public visitors no longer insert directly into the bookings table; submissions go through the `submit-booking` Supabase Edge Function, which verifies the Turnstile token before saving the request.
+
+### 1. Apply the database update
+
+1. Open your Supabase project and choose **SQL Editor**.
+2. Open `supabase/schema.sql` in this repository, copy the full contents and run it.
+3. Existing booking rows are kept. Their new `phone` field will remain empty until you collect a phone number from those customers. New submissions must include a valid phone number.
+4. The public direct-insert policy is removed. Do not restore anonymous insert permission; the Edge Function uses the server-side key to save verified requests.
+
+### 2. Set up Cloudflare Turnstile
+
+1. Sign in at https://dash.cloudflare.com/ and open **Turnstile**.
+2. Add a widget for your GitHub Pages hostname: `markmbabazi26-lgtm.github.io`.
+3. Choose the managed widget type and save it.
+4. Copy the **site key** into `index.html`, replacing `YOUR_CLOUDFLARE_TURNSTILE_SITE_KEY`.
+5. In Supabase, open **Edge Functions → Secrets** and add `TURNSTILE_SECRET_KEY` with the Turnstile secret key. Do not put this secret in GitHub or the website.
+
+### 3. Deploy the booking function
+
+1. In Supabase, open **Edge Functions** and create a function named `submit-booking`.
+2. Paste the source from `supabase/functions/submit-booking/index.ts`.
+3. Deploy it. Supabase provides the project URL and server key to Edge Functions; the function reads those server-side.
+4. Confirm the function is deployed before testing the public form.
+
+The function verifies Turnstile, validates customer details and saves the request with status `pending`. If the function or Turnstile secrets are not configured, the form will show an error instead of accepting an unprotected request.
+
+### 4. Test
+
+- Submit a request with a phone number and a completed Turnstile check.
+- Confirm the new row appears in `public.bookings` with its phone number.
+- Confirm the phone number appears in the admin dashboard and its WhatsApp link opens.
+- Try submitting without a phone number or without completing Turnstile; the request should not be saved.
+
+The form's email field remains optional because the phone/WhatsApp number is now required.
