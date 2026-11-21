@@ -244,7 +244,21 @@
         @media(max-width:800px) { .trip-grid,.faq-layout { grid-template-columns:1fr; gap:30px; } }
         @media(max-width:650px) { .trip-planner,.faq-section { padding:68px 0; } .trip-form { grid-template-columns:1fr; padding:20px; } .form-field.full,.form-submit,.form-note { grid-column:1; } .whatsapp-float { right:13px; bottom:13px; padding:12px 14px; } }
     </style>
-    <script type="application/ld+json">\n    {"@context":"https://schema.org","@type":"TravelAgency","name":"Crest Tours and Safaris","description":"Uganda national park trips and locally guided safari experiences.","telephone":"+256700900395","email":"markmbabazi26@gmail.com","areaServed":{"@type":"Country","name":"Uganda"}}\n    </script>\n</head>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TravelAgency",
+      "name": "Crest Tours and Safaris",
+      "description": "Uganda national park trips and locally guided safari experiences.",
+      "url": "https://markmbabazi26-lgtm.github.io/tourism_website/",
+      "telephone": "+256700900395",
+      "email": "markmbabazi26@gmail.com",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Uganda"
+      }
+    }
+    </script>\n</head>
 <body>
     <div class="announcement"><strong>Your Uganda adventure starts here.</strong> Locally guided, thoughtfully planned.</div>
     <header class="header">
@@ -430,14 +444,18 @@
                 </div>
                 <form class="trip-form" id="trip-enquiry-form">
                     <div class="form-field"><label for="traveller-name">Your name *</label><input id="traveller-name" name="name" autocomplete="name" required maxlength="80" placeholder="Your name"></div>
-                    <div class="form-field"><label for="traveller-email">Email address</label><input id="traveller-email" name="email" type="email" autocomplete="email" maxlength="120" placeholder="you@example.com"></div>
+                    <div class="form-field"><label for="traveller-phone">Phone / WhatsApp number *</label><input id="traveller-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required minlength="7" maxlength="24" pattern="[+0-9() .-]{7,24}" placeholder="+256 700 000 000"></div>
+                    <div class="form-field"><label for="traveller-email">Email address (optional)</label><input id="traveller-email" name="email" type="email" autocomplete="email" maxlength="120" placeholder="you@example.com"></div>
                     <div class="form-field"><label for="trip-destination">Destination of interest *</label><select id="trip-destination" name="destination" required><option value="">Choose a destination</option><option>Murchison Falls</option><option>Queen Elizabeth</option><option>Bwindi Impenetrable</option><option>Rwenzori Mountains</option><option>Lake Mburo</option><option>Kibale Forest</option><option>Lake Bunyonyi</option><option>Semuliki National Park</option><option>Multiple destinations / not sure yet</option></select></div>
                     <div class="form-field"><label for="trip-date">Preferred start date</label><input id="trip-date" name="date" type="date"></div>
                     <div class="form-field"><label for="traveller-count">Number of travellers *</label><input id="traveller-count" name="travellers" type="number" min="1" max="30" value="2" required></div>
                     <div class="form-field"><label for="trip-style">Experience you prefer</label><select id="trip-style" name="style"><option>Wildlife safari</option><option>Gorilla trekking</option><option>Chimpanzee tracking</option><option>Hiking and nature</option><option>Lakes and relaxation</option><option>A mix of experiences</option><option>I'd like advice</option></select></div>
                     <div class="form-field full"><label for="trip-message">Anything else we should know?</label><textarea id="trip-message" name="message" maxlength="1200" placeholder="Trip length, interests, budget range or any questions..."></textarea></div>
+                    <div class="form-field" aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden"><label for="website">Leave this field empty</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+                    <div class="form-field full"><div class="cf-turnstile" data-sitekey="YOUR_CLOUDFLARE_TURNSTILE_SITE_KEY" data-theme="light"></div></div>
                     <button class="button form-submit" type="submit">Submit booking request <span aria-hidden="true">↗</span></button>
                     <p class="form-note">Your request is saved as pending. No payment is taken and no booking is confirmed until the team verifies availability, permits and the final price.</p>
+                    <p class="form-note">We use your contact details only to respond to this trip enquiry. By submitting, you agree that Crest Tours and Safaris may contact you about your request.</p>
                 </form>
             </div>
         </section>
@@ -486,6 +504,7 @@
     </footer>
 
     <a class="whatsapp-float" href="https://wa.me/256700900395?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20a%20Uganda%20trip." target="_blank" rel="noopener noreferrer" aria-label="Chat with Crest Tours and Safaris on WhatsApp">WhatsApp <span aria-hidden="true">↗</span></a>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>
     <script src="booking-system.js" defer></script>
