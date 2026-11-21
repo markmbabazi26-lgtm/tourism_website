@@ -83,8 +83,9 @@ The public booking form now requires a customer phone/WhatsApp number and uses C
 
 1. In Supabase, open **Edge Functions** and create a function named `submit-booking`.
 2. Paste the source from `supabase/functions/submit-booking/index.ts`.
-3. Deploy it. Supabase provides the project URL and server key to Edge Functions; the function reads those server-side.
-4. Confirm the function is deployed before testing the public form.
+3. In the function's settings, turn **Verify JWT with legacy secret** OFF. This endpoint is intentionally public; it verifies every Turnstile token on the server before it can insert a booking. Do not expose the Turnstile secret or Supabase server key.
+4. Deploy it. Supabase provides the project URL and server key to Edge Functions; the function reads those server-side.
+5. Confirm the function is deployed before testing the public form.
 
 The function verifies Turnstile, validates customer details and saves the request with status `pending`. If the function or Turnstile secrets are not configured, the form will show an error instead of accepting an unprotected request.
 
