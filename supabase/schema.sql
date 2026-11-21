@@ -37,7 +37,7 @@ alter table public.bookings add column if not exists phone text;
 
 alter table public.bookings drop constraint if exists bookings_phone_required_check;
 alter table public.bookings add constraint bookings_phone_required_check
-  check (phone is not null and char_length(trim(phone)) between 7 and 24) not valid;
+  check (phone is null or char_length(trim(phone)) between 7 and 24) not valid;
 
 alter table public.bookings drop constraint if exists bookings_email_format_check;
 alter table public.bookings add constraint bookings_email_format_check
