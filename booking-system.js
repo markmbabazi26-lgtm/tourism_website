@@ -93,13 +93,12 @@
 
     form.reset();
     if (window.turnstile) window.turnstile.reset();
-    const phone = booking.phone.replace(/[^0-9]/g, "");
-    const internationalPhone = phone.startsWith("0") ? "256" + phone.slice(1) : phone;
+    const businessWhatsApp = "256700900395";
     const message = "Hello Crest Tours and Safaris, I just submitted a trip request for " + booking.destination + ". Please contact me about the next steps.";
     if (note) {
       note.textContent = "Your request has been received and is pending confirmation. You can also continue the conversation on WhatsApp.";
       const link = document.createElement("a");
-      link.href = "https://wa.me/" + internationalPhone + "?text=" + encodeURIComponent(message);
+      link.href = "https://wa.me/" + businessWhatsApp + "?text=" + encodeURIComponent(message);
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       link.textContent = "Continue on WhatsApp";
