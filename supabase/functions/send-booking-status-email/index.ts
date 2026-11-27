@@ -29,7 +29,8 @@ Deno.serve(async (request) => {
       Deno.env.get("SUPABASE_PUBLISHABLE_KEY") || publishableKeys.default ||
       Object.values(publishableKeys)[0];
     const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ||
-      Deno.env.get("SUPABASE_SECRET_KEY") || secretKeys.default ||
+      Deno.env.get("SUPABASE_SECRET_KEY") ||
+      Deno.env.get("CREST_SUPABASE_SECRET_KEY") || secretKeys.default ||
       Object.values(secretKeys)[0];
     const resendKey = Deno.env.get("RESEND_API_KEY");
     const emailFrom = Deno.env.get("EMAIL_FROM");
