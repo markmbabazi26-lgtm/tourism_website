@@ -55,7 +55,11 @@ Deno.serve(async (request) => {
     });
     const { data: admin, error: adminError } = await adminClient
       .from("admin_users").select("user_id").eq("user_id", userData.user.id).maybeSingle();
-    if (adminError || !admin) return json({ error: "Administrator access required." }, 403);
+    if (adminError) {
+      console.error("Admin lookup failed:", adminError.message);
+      return json({ error: "Administrator lookup failed. Check the function database credentials." }, 500);
+    }
+    if (!admin) return json({ error: "Administrator access required." }, 403);
 
     const body = await request.json();
     const bookingId = String(body.booking_id || "");
