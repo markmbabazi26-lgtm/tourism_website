@@ -13,8 +13,8 @@
     console.warn("Crest booking system: add Supabase settings in supabase-config.js.");
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      const note = form.querySelector(".form-note");
-      if (note) note.textContent = "Online booking is being connected. Please contact Crest Tours and Safaris on WhatsApp for now.";
+      const note = form.querySelector("#form-status");\n  const setStatus = (message, type = "success") => {\n    if (!note) return;\n    note.hidden = false;\n    note.classList.toggle("error", type === "error");\n    note.textContent = message;\n  };
+      setStatus("Online booking is being connected. Please contact Crest Tours and Safaris on WhatsApp for now.", "error");
     });
     return;
   }
@@ -38,13 +38,13 @@
     const values = new FormData(form);
     if (String(values.get("website") || "").trim()) {
       form.reset();
-      if (note) note.textContent = "Thank you. Your request has been received.";
+      setStatus("Thank you. Your request has been received.");
       return;
     }
 
     const token = form.querySelector('[name="cf-turnstile-response"]')?.value || "";
     if (!token) {
-      if (note) note.textContent = "Please complete the security check before submitting.";
+      setStatus("Please complete the security check before submitting.", "error");
       return;
     }
 
@@ -65,7 +65,7 @@
       submit.disabled = true;
       submit.textContent = "Sending booking request…";
     }
-    if (note) note.textContent = "Checking your request securely…";
+    setStatus("Checking your request securely…");
 
     let result;
     try {
@@ -82,7 +82,7 @@
       if (!response.ok) throw new Error(result.error || "Your request could not be submitted.");
     } catch (error) {
       console.error("Booking submission failed:", error);
-      if (note) note.textContent = error.message || "We could not submit your request. Please try again or contact us on WhatsApp.";
+      setStatus(error.message || "We could not submit your request. Please try again or contact us on WhatsApp.", "error");
       if (window.turnstile) window.turnstile.reset();
       if (submit) {
         submit.disabled = false;
