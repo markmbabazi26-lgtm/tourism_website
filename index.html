@@ -226,7 +226,9 @@
         .form-field textarea { min-height:105px; resize:vertical; line-height:1.6; }
         .form-field input:focus,.form-field select:focus,.form-field textarea:focus { outline:3px solid rgba(168,195,69,.3); border-color:var(--leaf); }
         .form-submit { grid-column:1/-1; justify-self:start; }
-        .form-note { grid-column:1/-1; margin:0; color:#46534b; font-size:13px; line-height:1.65; }\n        .form-status { grid-column:1/-1; margin:0; padding:15px 17px; border:1px solid #8bb79a; border-left:5px solid #287342; border-radius:5px; background:#eaf5ed; color:#174b2b; font-size:15px; font-weight:600; line-height:1.6; }\n        .form-status.error { border-color:#d69a9a; border-left-color:#a52f2f; background:#fff0f0; color:#7e2424; }
+        .form-note { grid-column:1/-1; margin:0; color:#46534b; font-size:13px; line-height:1.65; }
+        .form-status { grid-column:1/-1; margin:0; padding:15px 17px; border:1px solid #8bb79a; border-left:5px solid #287342; border-radius:5px; background:#eaf5ed; color:#174b2b; font-size:15px; font-weight:600; line-height:1.6; }
+        .form-status.error { border-color:#d69a9a; border-left-color:#a52f2f; background:#fff0f0; color:#7e2424; }
         .faq-section { padding:88px 0; background:var(--cream); }
         .faq-layout { display:grid; grid-template-columns:.8fr 1.2fr; gap:60px; align-items:start; }
         .faq-heading h2 { margin-bottom:15px; }
@@ -239,7 +241,9 @@
         .faq-list details[open] summary::after { content:"−"; }
         .faq-list details p { margin:0; padding:0 18px 18px; color:#536057; font-size:13px; line-height:1.8; }
         .whatsapp-float { position:fixed; z-index:15; right:22px; bottom:22px; display:inline-flex; align-items:center; gap:9px; padding:13px 17px; border-radius:99px; background:#1f754b; color:#fff; box-shadow:0 8px 25px rgba(0,0,0,.2); font-size:13px; font-weight:700; }
-        .whatsapp-float:hover { background:#185f3c; transform:translateY(-2px); }\n        .mobile-plan { display:none; }\n        @media(max-width:650px) { .mobile-plan { position:fixed; z-index:14; left:13px; bottom:13px; display:inline-flex; align-items:center; gap:8px; padding:12px 14px; border-radius:99px; background:var(--forest); color:#fff; box-shadow:0 8px 25px rgba(0,0,0,.2); font-size:13px; font-weight:700; } .whatsapp-float { right:13px; bottom:13px; } }
+        .whatsapp-float:hover { background:#185f3c; transform:translateY(-2px); }
+        .mobile-plan { display:none; }
+        @media(max-width:650px) { .mobile-plan { position:fixed; z-index:14; left:13px; bottom:13px; display:inline-flex; align-items:center; gap:8px; padding:12px 14px; border-radius:99px; background:var(--forest); color:#fff; box-shadow:0 8px 25px rgba(0,0,0,.2); font-size:13px; font-weight:700; } .whatsapp-float { right:13px; bottom:13px; } }
         [hidden] { display:none !important; }
         @media(max-width:800px) { .trip-grid,.faq-layout { grid-template-columns:1fr; gap:30px; } }
         @media(max-width:650px) { .trip-planner,.faq-section { padding:68px 0; } .trip-form { grid-template-columns:1fr; padding:20px; } .form-field.full,.form-submit,.form-note { grid-column:1; } .whatsapp-float { right:13px; bottom:13px; padding:12px 14px; } }
@@ -258,7 +262,8 @@
         "name": "Uganda"
       }
     }
-    </script>\n</head>
+    </script>
+</head>
 <body>
     <div class="announcement"><strong>Your Uganda adventure starts here.</strong> Locally guided, thoughtfully planned.</div>
     <header class="header">
@@ -503,7 +508,8 @@
         </div>
     </footer>
 
-    <a class="mobile-plan" href="#plan">Plan your trip <span aria-hidden="true">→</span></a>\n    <a class="whatsapp-float" href="https://wa.me/256700900395?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20a%20Uganda%20trip." target="_blank" rel="noopener noreferrer" aria-label="Chat with Crest Tours and Safaris on WhatsApp">WhatsApp <span aria-hidden="true">↗</span></a>
+    <a class="mobile-plan" href="#plan">Plan your trip <span aria-hidden="true">→</span></a>
+    <a class="whatsapp-float" href="https://wa.me/256700900395?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20a%20Uganda%20trip." target="_blank" rel="noopener noreferrer" aria-label="Chat with Crest Tours and Safaris on WhatsApp">WhatsApp <span aria-hidden="true">↗</span></a>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.8"></script>
     <script src="supabase-config.js"></script>
