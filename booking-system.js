@@ -9,11 +9,18 @@
   const form = document.querySelector("#trip-enquiry-form");
   if (!form) return;
 
+  const status = form.querySelector("#form-status");
+  const setStatus = (message, type = "success") => {
+    if (!status) return;
+    status.hidden = false;
+    status.classList.toggle("error", type === "error");
+    status.textContent = message;
+  };
+
   if (!configured || !window.supabase) {
     console.warn("Crest booking system: add Supabase settings in supabase-config.js.");
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      const note = form.querySelector("#form-status");\n  const setStatus = (message, type = "success") => {\n    if (!note) return;\n    note.hidden = false;\n    note.classList.toggle("error", type === "error");\n    note.textContent = message;\n  };
       setStatus("Online booking is being connected. Please contact Crest Tours and Safaris on WhatsApp for now.", "error");
     });
     return;
@@ -29,7 +36,6 @@
   }
 
   const submit = form.querySelector('[type="submit"]');
-  const note = form.querySelector(".form-note");
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -67,7 +73,6 @@
     }
     setStatus("Checking your request securely…");
 
-    let result;
     try {
       const response = await fetch(config.url + "/functions/v1/submit-booking", {
         method: "POST",
@@ -78,39 +83,33 @@
         },
         body: JSON.stringify(booking)
       });
-      result = await response.json().catch(() => ({}));
+      const result = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(result.error || "Your request could not be submitted.");
-    } catch (error) {
-      console.error("Booking submission failed:", error);
-      setStatus(error.message || "We could not submit your request. Please try again or contact us on WhatsApp.", "error");
-      if (window.turnstile) window.turnstile.reset();
-      if (submit) {
-        submit.disabled = false;
-        submit.innerHTML = 'Submit booking request <span aria-hidden="true">↗</span>';
-      }
-      return;
-    }
 
-    form.reset();
-    if (window.turnstile) window.turnstile.reset();
-    const businessWhatsApp = "256700900395";
-    const message = "Hello Crest Tours and Safaris, I just submitted a trip request for " + booking.destination + ". Please contact me about the next steps.";
-    if (note) {
-      note.textContent = "Your request has been received and is pending confirmation. You can also continue the conversation on WhatsApp.";
+      form.reset();
+      if (window.turnstile) window.turnstile.reset();
+      setStatus("Your request has been received and is pending confirmation. No payment has been taken. The team will contact you to confirm availability, permits and final pricing.");
+
       const link = document.createElement("a");
-      link.href = "https://wa.me/" + businessWhatsApp + "?text=" + encodeURIComponent(message);
+      link.href = "https://wa.me/256700900395?text=" + encodeURIComponent("Hello Crest Tours and Safaris, I just submitted a trip request for " + booking.destination + ". Please contact me about the next steps.");
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       link.textContent = "Continue on WhatsApp";
       link.style.display = "inline-block";
       link.style.marginTop = "8px";
-      note.appendChild(document.createTextNode(" "));
-      note.appendChild(link);
-    }
-    form.querySelector("#traveller-count").value = "2";
-    if (submit) {
-      submit.disabled = false;
-      submit.innerHTML = 'Submit booking request <span aria-hidden="true">↗</span>';
+      status.appendChild(document.createTextNode(" "));
+      status.appendChild(link);
+
+      form.querySelector("#traveller-count").value = "2";
+    } catch (error) {
+      console.error("Booking submission failed:", error);
+      setStatus(error.message || "We could not submit your request. Please try again or contact us on WhatsApp.", "error");
+      if (window.turnstile) window.turnstile.reset();
+    } finally {
+      if (submit) {
+        submit.disabled = false;
+        submit.innerHTML = 'Submit booking request <span aria-hidden="true">↗</span>';
+      }
     }
   });
 })();
